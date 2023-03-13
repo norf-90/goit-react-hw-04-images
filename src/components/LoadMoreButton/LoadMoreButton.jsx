@@ -6,6 +6,7 @@ const LoadMoreButton = ({ onClick }) => {
   const handleClick = () => {
     onClick();
   };
+
   return (
     <Button type="button" onClick={handleClick}>
       Load more
