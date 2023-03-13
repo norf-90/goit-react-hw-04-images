@@ -1,40 +1,38 @@
-import React, { Component } from 'react';
+import React, { useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import { Overlay, ImgContainer } from './Modal.styled';
 import PropTypes from 'prop-types';
 
 const modalRoot = document.querySelector('#modal-root');
 
-class Modal extends Component {
-  componentDidMount() {
-    window.addEventListener('keydown', this.onEsc);
-  }
+const Modal = ({ toggleModal, children }) => {
+  useEffect(() => {
+    const onEsc = e => {
+      if (e.code === 'Escape') {
+        toggleModal();
+      }
+    };
 
-  componentWillUnmount() {
-    window.removeEventListener('keydown', this.onEsc);
-  }
+    window.addEventListener('keydown', onEsc);
 
-  onEsc = e => {
-    if (e.code === 'Escape') {
-      this.props.toggleModal();
-    }
-  };
+    return () => {
+      window.removeEventListener('keydown', onEsc);
+    };
+  }, [toggleModal]);
 
-  onCloseModal = e => {
+  const onCloseModal = e => {
     if (e.currentTarget === e.target) {
-      this.props.toggleModal();
+      toggleModal();
     }
   };
 
-  render() {
-    return createPortal(
-      <Overlay onClick={this.onCloseModal}>
-        <ImgContainer>{this.props.children}</ImgContainer>
-      </Overlay>,
-      modalRoot
-    );
-  }
-}
+  return createPortal(
+    <Overlay onClick={onCloseModal}>
+      <ImgContainer>{children}</ImgContainer>
+    </Overlay>,
+    modalRoot
+  );
+};
 
 Modal.propTypes = {
   toggleModal: PropTypes.func.isRequired,

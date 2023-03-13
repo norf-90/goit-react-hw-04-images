@@ -1,11 +1,13 @@
 import React, { useState, useEffect, useMemo, useRef } from 'react';
-import { GlobalStyles } from 'components/GlobalStyles';
-import Searchbar from 'components/Searchbar/Searchbar';
-import Loader from 'components/Loader/Loader';
-import ImageGallery from 'components/ImageGallery/ImageGallery';
-import LoadMoreButton from 'components/LoadMoreButton/LoadMoreButton';
-import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
-import { fetchImages } from 'components/services/fetchImages';
+import {
+  GlobalStyles,
+  Searchbar,
+  Loader,
+  ImageGallery,
+  LoadMoreButton,
+  ErrorMessage,
+  fetchImages,
+} from './index';
 
 const App = () => {
   const [searchName, setSearchName] = useState('');
